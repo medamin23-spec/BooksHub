@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    <title>BooksHub</title>
+  </head>
+  <body>
+    <div class="Header">
+      <a href="#" class="logo">BooksHub</a>
+      <ul class="items">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Books</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="login">
+        <a href="{%url 'login'%}">LogIn</a>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="title">
+        <h1>Welcome to,</h1>
+        <span> Digital Books for Ethical Hacking and Back-End Development</span>
+      </div>
+      <div class="btn">
+        <a href="#">About</a>
+      </div>
+    </div>
+    <div class="about">
+  <div class="about-container">
+    <div class="desc">
+      <h2>Welcome to our website BooksHub</h2>
+      <p>
+        Where we have the best books to learn about various topics such as cyber security,
+        ethical hacking and website development. What are you waiting for?
+        Get one of our books and be among the first in these topics.
+      </p>
+      <a href="#">Go It</a>
+    </div>
+    <div class="about-image">
+      <img src="https://cdn-icons-png.flaticon.com/512/2421/2421066.png" alt="Book icon" class="about-icon">
+    </div>
+  </div>
+  </div>
+  <div class="book-sections">
+  <div class="card-container">
+    {% for book in books %}
+    <div class="card">
+      {% if book.image %}
+        <img src="{{ book.image.url }}" alt="{{ book.title }}">
+      {% else %}
+        <img src="{% static 'default.jpg' %}" alt="No image available">
+      {% endif %}
+      <h3>{{ book.title }}</h3>
+      <p>{{ book.desc }}</p>
+      <a href="{{ book.download_link }}">Download</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+  <div class="contact-section">
+    <h2>Contact Us</h2>
+    <form method="POST">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" name="name" required>
+    <label for="email">Email:</label>
+    <input type="email" name="email" required>
+    <label for="message">Message:</label>
+    <textarea name="message" rows="5" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+  </div>
+  <footer class="footer">
+    <p>&copy; 2025 BookHub. All rights reserved.</p>
+    <p>Made with ❤️ by Amin</p>
+</footer>
+  </body>
+</html>
